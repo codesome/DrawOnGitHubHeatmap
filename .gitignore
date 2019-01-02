@@ -10,3 +10,7 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+name_in_git_heatmap
+
+!cmd/name_in_git_heatmap
