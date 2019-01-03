@@ -6,12 +6,12 @@ import (
 	"path/filepath"
 	"time"
 
-	nameingitheatmap "github.com/codesome/name_in_git_heatmap"
+	"github.com/codesome/DrawOnGitHubHeatmap"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 func main() {
-	a := kingpin.New(filepath.Base(os.Args[0]), "The Prometheus monitoring server")
+	a := kingpin.New(filepath.Base(os.Args[0]), "Draw on GitHub heatmap")
 
 	a.HelpFlag.Short('h')
 
@@ -24,7 +24,7 @@ func main() {
 	a.Flag("pixel-layout-config", "Configuration file for pixel layout.").
 		Default("pixelConfig.yaml").StringVar(&pixelConfigFile)
 
-	a.Flag("commits-per-day", "Configuration file for pixel layout.").
+	a.Flag("commits-per-day", "Number of commits on each day on heatmap. This should be >= the number of commits on darkest spot of your heatmap.").
 		Default("5").IntVar(&commitsPerDay)
 
 	a.Flag("text", "Text to write in the heatmap.").
@@ -37,40 +37,44 @@ func main() {
 		os.Exit(2)
 	}
 
-	if err := nameingitheatmap.CleanRepo(); err != nil {
+	if len(mainString) == 0 {
+		return
+	}
+
+	if err := DrawOnGitHubHeatmap.CleanRepo(); err != nil {
 		panic(err)
 	}
 
-	pixelConfig, err := nameingitheatmap.ParsePixelConfigFromFile(pixelConfigFile)
+	pixelConfig, err := DrawOnGitHubHeatmap.ParsePixelConfigFromFile(pixelConfigFile)
 	if err != nil {
 		panic(err)
 	}
 
 	padding := 0
-	if len(mainString)*pixelConfig.Width > nameingitheatmap.Width {
+	if len(mainString)*pixelConfig.Width > DrawOnGitHubHeatmap.Width {
 		panic(fmt.Errorf("Too many characters"))
 	}
-	if len(mainString)*(pixelConfig.Width+1) <= nameingitheatmap.Width {
+	if len(mainString)*(pixelConfig.Width+1) <= DrawOnGitHubHeatmap.Width {
 		padding = pixelConfig.Width + 1
 	}
 	if padding == 0 {
 		padding = pixelConfig.Width
 	}
 
-	initialOffset := (nameingitheatmap.Width - len(mainString)*(pixelConfig.Width+1) + 1) / 2
+	initialOffset := (DrawOnGitHubHeatmap.Width - len(mainString)*(pixelConfig.Width+1) + 1) / 2
 
 	now := time.Now()
-	config := &nameingitheatmap.Config{
+	config := &DrawOnGitHubHeatmap.Config{
 		EachPixelCommit: commitsPerDay,
 	}
 	config.Start = now.AddDate(0, 0, -int(now.Weekday()))
-	config.Start = config.Start.AddDate(0, 0, (initialOffset-nameingitheatmap.Width)*nameingitheatmap.Height)
+	config.Start = config.Start.AddDate(0, 0, (initialOffset-DrawOnGitHubHeatmap.Width)*DrawOnGitHubHeatmap.Height)
 
 	if err := config.Validate(); err != nil {
 		panic(err)
 	}
 
-	committer := nameingitheatmap.NewCommitter(config, padding)
+	committer := DrawOnGitHubHeatmap.NewCommitter(config, padding)
 
 	for _, c := range mainString {
 		indices := pixelConfig.Characters[rune(c)]

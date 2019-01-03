@@ -1,4 +1,4 @@
-package nameingitheatmap
+package DrawOnGitHubHeatmap
 
 import (
 	"fmt"

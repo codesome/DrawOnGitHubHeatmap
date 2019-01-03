@@ -1,5 +1,5 @@
-# name_in_git_heatmap
-Adds your name in GitHub heatmap
+# DrawOnGitHubHeatmap
+Draw on your GitHub heatmap
 
 Live demo can be found here: [https://github.com/codesomeExperimental](https://github.com/codesomeExperimental) (will be update occasionally)
 
@@ -16,21 +16,21 @@ Live demo can be found here: [https://github.com/codesomeExperimental](https://g
 ### Download
 
 ```bash
-$ git clone https://github.com/codesome/name_in_git_heatmap.git
-$ cd name_in_git_heatmap
+$ git clone https://github.com/codesome/DrawOnGitHubHeatmap.git
+$ cd DrawOnGitHubHeatmap
 ```
 
 ### Build
 
 ```bash
-# Executable will be created with the name name_in_git_heatmap.
+# Executable will be created with the name DrawOnGitHubHeatmap.
 $ make build # Tested with go1.11.2
 ```
 
 ### Help
 
 ```bash
-$ ./name_in_git_heatmap -h
+$ ./DrawOnGitHubHeatmap -h
 ```
 
 ### Preparing config
@@ -58,7 +58,7 @@ The string inside the layout can consist only `.` or `*`
 * `.` means it's an empty space
 * `*` means it's filled.
 
-You can get a good idea about the config from the prefilled configs [here](https://github.com/codesome/name_in_git_heatmap/tree/master/prefilledConfigs) and below example.
+You can get a good idea about the config from the prefilled configs [here](https://github.com/codesome/DrawOnGitHubHeatmap/tree/master/prefilledConfigs) and below example.
 
 Example:
 
@@ -95,7 +95,7 @@ Create an empty (dummy) repository in GitHub (preferably private, to avoid distr
 `cd` into the repo and run the following command
 
 ```bash
-$ /path/to/name_in_git_heatmap --pixel-layout-config=<path_to_config> --commits-per-day=<int> --text=<string>
+$ /path/to/DrawOnGitHubHeatmap --pixel-layout-config=<path_to_config> --commits-per-day=<int> --text=<string>
 ```
 
 * `--pixel-layout-config`: Path to the config file to use.
@@ -104,7 +104,7 @@ $ /path/to/name_in_git_heatmap --pixel-layout-config=<path_to_config> --commits-
 
 Example
 ```bash
-$ /path/to/name_in_git_heatmap --pixel-layout-config=/path/to/myPixelConfig.yaml --commits-per-day=5 --text="HI"
+$ /path/to/DrawOnGitHubHeatmap --pixel-layout-config=/path/to/myPixelConfig.yaml --commits-per-day=5 --text="HI"
 ```
 
 ## Gotchas

@@ -1,5 +1,5 @@
 build: 
-	go build ./cmd/name_in_git_heatmap/
+	go build ./cmd/DrawOnGitHubHeatmap/
 
 update-vendor:
 	GO111MODULE=on go mod tidy
