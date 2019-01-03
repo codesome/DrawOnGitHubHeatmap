@@ -65,7 +65,7 @@ Example:
 ```yaml
 # myPixelConfig.yaml
 
-width: 5
+width: 5 # If you set this to 52, you can map a letter to a drawing on entire heatmap!
 
 characters:
   - char: H
