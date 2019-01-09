@@ -41,9 +41,11 @@ func main() {
 		return
 	}
 
-	if err := DrawOnGitHubHeatmap.CleanRepo(); err != nil {
-		panic(err)
-	}
+	// No use of cleaning the repo, as it doesn't affect the heatmap.
+	// Delete the repo and create again instead.
+	// if err := DrawOnGitHubHeatmap.CleanRepo(); err != nil {
+	// 	panic(err)
+	// }
 
 	pixelConfig, err := DrawOnGitHubHeatmap.ParsePixelConfigFromFile(pixelConfigFile)
 	if err != nil {
